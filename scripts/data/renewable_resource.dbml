@@ -1,0 +1,14 @@
+// https://dbdiagram.io/d/5e61962c4495b02c3b87de5e
+
+Table renewable_resource as RR  [headercolor: #c0392b] {
+  id int [pk, increment]
+  calendar_date datetime
+  total_renewable_energy_resources float
+  installed_rooftop_solar_capacity_minus_losses_mw float4
+  total_renewable_energy_purchased_annually_kwh numeric
+  greenchoice_sales_kwh numeric
+  renewable_energy_to_fuel_charge_kwh numeric
+  wind_mw float
+  utility_scale_solar_mw float
+  biomass_mw float
+}
