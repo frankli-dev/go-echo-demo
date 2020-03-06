@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/buger/jsonparser"
-	"github.com/ivan-marquez/golang-demo/pkg/models"
+	"github.com/ivan-marquez/golang-demo/pkg/storage/pq"
 )
 
 // TODO: add comment
@@ -19,8 +19,8 @@ func retrieveColumns(value []byte, dataType jsonparser.ValueType, offset int, er
 }
 
 // TODO: add comment
-func parseColumnValues(data []byte) ([]*models.RenewableResource, error) {
-	var rows []*models.RenewableResource
+func parseColumnValues(data []byte) ([]*pq.RenewableResource, error) {
+	var rows []*pq.RenewableResource
 
 	parse := func(data []byte, dataType jsonparser.ValueType, offset int, err error) {
 		d, _, _, err := jsonparser.Get(data)
@@ -61,7 +61,7 @@ func cleanupColumnValues(data []byte) []string {
 }
 
 // TODO: add comment
-func parseRenewableResource(values []string) *models.RenewableResource {
+func parseRenewableResource(values []string) *pq.RenewableResource {
 	cd, err := time.Parse("2006-01-02T15:04:05", values[0])
 	if err != nil {
 		log.Fatalf("Error parsing date: %v", err)
@@ -92,7 +92,7 @@ func parseRenewableResource(values []string) *models.RenewableResource {
 		return i
 	}
 
-	return &models.RenewableResource{
+	return &pq.RenewableResource{
 		CalendarDate:                  cd,
 		TotalRenewableEnergyResources: float32(toFloat(values[1])),
 		InstalledSolarCapacity:        float32(toFloat(values[2])),
@@ -106,7 +106,7 @@ func parseRenewableResource(values []string) *models.RenewableResource {
 }
 
 // TODO: add comment
-func ParseResponse(data []byte) ([]*models.RenewableResource, error) {
+func ParseResponse(data []byte) ([]*pq.RenewableResource, error) {
 	// TODO: what to do with description?
 	// TODO: what to do with columns?
 	description, _, _, err := jsonparser.Get(data, "meta", "view", "description")
