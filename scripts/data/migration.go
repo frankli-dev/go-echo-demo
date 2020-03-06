@@ -3,7 +3,7 @@ package data
 import (
 	"log"
 
-	"github.com/ivan-marquez/golang-demo/pkg/models"
+	"github.com/ivan-marquez/golang-demo/pkg/storage/pq"
 	"github.com/jinzhu/gorm"
 	gormbulk "github.com/t-tiger/gorm-bulk-insert"
 )
@@ -11,7 +11,7 @@ import (
 // TODO: add comment
 func Migrate(db *gorm.DB) {
 	log.Println("creating table…")
-	db.AutoMigrate(&models.RenewableResource{})
+	db.AutoMigrate(&pq.RenewableResource{})
 	log.Println("table successfully created.")
 
 	log.Println("requesting data to be inserted…")
