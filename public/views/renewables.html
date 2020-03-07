@@ -1,0 +1,72 @@
+{{define "renewables"}}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="static/timeline.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.css"
+    />
+  </head>
+  <body>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">
+          Austin Energy Renewable Resources
+        </h1>
+        <p class="subtitle">
+          The Austin Energy Resource & Climate Protection Plan, approved by the
+          Austin City Council in 2014 set a target of achieving 55% renewable
+          resources by 2025. View the measures of how Austin Energy is meeting
+          its commitment starting in 2006.
+        </p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrapper">
+        <div class="timeline">
+          {{range $index, $element := .}}
+          <dl class="timeline--entry">
+            <dt class="timeline--entry__title">{{$element.CalendarDate}}</dt>
+            <dd class="timeline--entry__detail">
+              Total Renewable Energy Resources: <br />
+              <strong>{{$element.TotalRenewableEnergyResources}}</strong>
+            </dd>
+            <dd class="timeline--entry__detail">
+              Installed Rooftop Solar Capacity Minus Losses (MW): <br />
+              <strong>{{$element.InstalledSolarCapacity}}</strong>
+            </dd>
+            <dd class="timeline--entry__detail">
+              Total Renewable Energy Purchased Annually (kWh): <br />
+              <strong>{{$element.TotalRenewableEnergyPurchased}}</strong>
+            </dd>
+            <dd class="timeline--entry__detail">
+              GreenChoice® Sales (kWh): <br />
+              <strong>{{$element.GreenChoiceSales}}</strong>
+            </dd>
+            <dd class="timeline--entry__detail">
+              Renewable Energy to Fuel Charge (kWh): <br />
+              <strong>{{$element.RenewableEnergyToFuelCharge}}</strong>
+            </dd>
+            <dd class="timeline--entry__detail">
+              Wind (MW): <br />
+              <strong>{{$element.Wind}}</strong>
+            </dd>
+            <dd class="timeline--entry__detail">
+              Utility-Scale Solar (MW): <br />
+              <strong>{{$element.UtilityScaleSolar}}</strong>
+            </dd>
+            <dd class="timeline--entry__detail">
+              Biomass (MW): <br />
+              <strong>{{$element.Biomass}}</strong>
+            </dd>
+          </dl>
+          {{end}}
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
+{{end}}

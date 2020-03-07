@@ -1,0 +1,178 @@
+/*- Screen Sizes*/
+/*import fonts*/
+/* @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import url("https://fonts.googleapis.com/css?family=Oswald"); */
+/*media queries*/
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  /* font-family: "Open Sans", "Lucida Grande", Tahoma, Verdana, Arial, sans-serif; */
+  font-size: 0.875em;
+  color: #212121;
+  line-height: 1.5;
+}
+
+.wrapper {
+  margin: 3.125em auto;
+  padding: 1em 5em 1em;
+  max-width: 1000px;
+}
+
+h1 {
+  color: white;
+  /* font-family: "Open Sans", "Lucida Grande", Tahoma, Verdana, Arial, sans-serif; */
+  text-align: center;
+}
+
+/* - &:nth-child(1) {
+			 grid-area: entry1;
+		 }
+   - useful timesaver if there is a lengthy list
+*/
+.timeline {
+  line-height: 1.5em;
+  font-size: 14px;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  position: relative;
+  counter-reset: section;
+}
+.timeline:before {
+  content: "";
+  width: 10px;
+  height: 100%;
+  background: #424242;
+  position: absolute;
+  top: 0;
+  left: -3.313em;
+  border-radius: 40px 40px;
+}
+
+.timeline--entry {
+  position: relative;
+  background-color: #eeeeee;
+}
+.timeline--entry__title {
+  color: white;
+  background-color: rgb(42, 167, 148);
+  /* font-family: "Oswald", Georgia, Cambria, "Times New Roman", Times, serif; */
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 1em;
+}
+.timeline--entry__title:before {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  position: absolute;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  left: -1em;
+  border-right: 10px solid rgb(42, 167, 148);
+}
+.timeline--entry__detail {
+  /* background-color: #dddddd; */
+  padding: 1em;
+  margin: 0;
+}
+.timeline--entry:before {
+  content: "";
+  color: #ffffff;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  width: 3em;
+  height: 3em;
+  background-color: #97999c;
+  border: 0.2em solid white;
+  border-radius: 50%;
+  position: absolute;
+  counter-increment: section;
+  content: counter(section);
+  text-shadow: 0 1px 0 #424242;
+  left: -4.5em;
+}
+
+@supports (display: grid) {
+  @media (min-width: 768px) {
+    .timeline {
+      display: grid;
+      grid-gap: 4.75em;
+      grid-template-areas: ".  entry1" "entry2  ." ". entry3" "entry4 ." ". entry5" "entry6 ." ". entry7" "entry8 ." ". entry9" "entry10 ." ". entry11" "entry12 ." ". entry13" "entry14 ." ". entry15";
+    }
+    .timeline:before {
+      left: 49.5%;
+    }
+
+    .timeline--entry:nth-child(1) {
+      grid-area: entry1;
+    }
+    .timeline--entry:nth-child(2) {
+      grid-area: entry2;
+    }
+    .timeline--entry:nth-child(3) {
+      grid-area: entry3;
+    }
+    .timeline--entry:nth-child(4) {
+      grid-area: entry4;
+    }
+    .timeline--entry:nth-child(5) {
+      grid-area: entry5;
+    }
+    .timeline--entry:nth-child(6) {
+      grid-area: entry6;
+    }
+    .timeline--entry:nth-child(7) {
+      grid-area: entry7;
+    }
+    .timeline--entry:nth-child(8) {
+      grid-area: entry8;
+    }
+    .timeline--entry:nth-child(9) {
+      grid-area: entry9;
+    }
+    .timeline--entry:nth-child(10) {
+      grid-area: entry10;
+    }
+    .timeline--entry:nth-child(11) {
+      grid-area: entry11;
+    }
+    .timeline--entry:nth-child(12) {
+      grid-area: entry12;
+    }
+    .timeline--entry:nth-child(13) {
+      grid-area: entry13;
+    }
+    .timeline--entry:nth-child(14) {
+      grid-area: entry14;
+    }
+    .timeline--entry:nth-child(15) {
+      grid-area: entry15;
+    }
+    .timeline--entry:nth-of-type(odd):before {
+      left: -3.8em;
+    }
+    .timeline--entry:nth-of-type(even):not(:nth-of-type(odd))
+      .timeline--entry__title:before {
+      left: 100%;
+      border-left: 10px solid rgb(42, 167, 148);
+      border-right: 0;
+    }
+    .timeline--entry:nth-of-type(even):before {
+      left: 103%;
+    }
+  }
+}
