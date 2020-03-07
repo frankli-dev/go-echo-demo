@@ -3,6 +3,8 @@ package main
 
 import (
 	"flag"
+	"html/template"
+	"io"
 	"log"
 
 	"github.com/ivan-marquez/golang-demo/pkg/http"
@@ -19,6 +21,23 @@ func init() {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
+	}
+}
+
+// TODO: add comment
+type Template struct {
+	templates *template.Template
+}
+
+// TODO: add comment
+func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
+	return t.templates.ExecuteTemplate(w, name, data)
+}
+
+// TODO: add comment
+func setupTemplates() echo.Renderer {
+	return &Template{
+		templates: template.Must(template.ParseGlob("public/views/*.html")),
 	}
 }
 
@@ -43,6 +62,8 @@ func main() {
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+	e.Renderer = setupTemplates()
+	e.Static("/static", "public/static")
 
 	http.Handler(e, lister)
 
