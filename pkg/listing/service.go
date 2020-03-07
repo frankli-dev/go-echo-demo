@@ -1,5 +1,7 @@
 package listing
 
+import "sort"
+
 // TODO: add comment
 type Repository interface {
 	GetAllRenewableResources() []*RenewableResource
@@ -18,7 +20,13 @@ type service struct {
 // TODO: add comment
 // TODO: add error handling
 func (s *service) GetRenewableResources() []*RenewableResource {
-	return s.r.GetAllRenewableResources()
+	res := s.r.GetAllRenewableResources()
+
+	sort.Slice(res[:], func(i, j int) bool {
+		return res[i].CalendarDate < res[j].CalendarDate
+	})
+
+	return res
 }
 
 // NewService creates a listing service with the necessary dependencies
