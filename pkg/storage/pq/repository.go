@@ -26,7 +26,7 @@ func (s *Storage) GetAllRenewableResources() []*listing.RenewableResource {
 
 	for _, r := range resources {
 		list = append(list, &listing.RenewableResource{
-			CalendarDate:                  r.CalendarDate,
+			CalendarDate:                  r.CalendarDate.Format("01/02/2006"),
 			TotalRenewableEnergyResources: r.TotalRenewableEnergyResources,
 			InstalledSolarCapacity:        r.InstalledSolarCapacity,
 			TotalRenewableEnergyPurchased: r.TotalRenewableEnergyPurchased,

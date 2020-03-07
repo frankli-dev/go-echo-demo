@@ -1,12 +1,8 @@
 package listing
 
-import (
-	"time"
-)
-
 // TODO: add comment
 type RenewableResource struct {
-	CalendarDate                  time.Time
+	CalendarDate                  string
 	TotalRenewableEnergyResources float32
 	InstalledSolarCapacity        float32
 	TotalRenewableEnergyPurchased int64
