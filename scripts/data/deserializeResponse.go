@@ -12,13 +12,6 @@ import (
 )
 
 // TODO: add comment
-func retrieveColumns(value []byte, dataType jsonparser.ValueType, offset int, err error) {
-	name, _, _, err := jsonparser.Get(value, "name")
-
-	fmt.Println(string(name))
-}
-
-// TODO: add comment
 func parseColumnValues(data []byte) ([]*pq.RenewableResource, error) {
 	var rows []*pq.RenewableResource
 
@@ -107,19 +100,6 @@ func parseRenewableResource(values []string) *pq.RenewableResource {
 
 // TODO: add comment
 func ParseResponse(data []byte) ([]*pq.RenewableResource, error) {
-	// TODO: what to do with description?
-	// TODO: what to do with columns?
-	description, _, _, err := jsonparser.Get(data, "meta", "view", "description")
-	if err != nil {
-		return nil, fmt.Errorf("Error while parsing description: %v", err)
-	}
-	fmt.Println(string(description))
-
-	_, err = jsonparser.ArrayEach(data, retrieveColumns, "meta", "view", "columns")
-	if err != nil {
-		return nil, fmt.Errorf("Error while parsing columns: %v", err)
-	}
-
 	c, err := parseColumnValues(data)
 	if err != nil {
 		return nil, fmt.Errorf("Error while parsing data values: %v", err)
