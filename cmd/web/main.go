@@ -12,31 +12,23 @@ import (
 	"github.com/ivan-marquez/golang-demo/pkg/storage/pq"
 	"github.com/ivan-marquez/golang-demo/scripts/data"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
-func init() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-}
-
 // TODO: add comment
-type Template struct {
+type TemplateRenderer struct {
 	templates *template.Template
 }
 
 // TODO: add comment
-func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
+func (t *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
 	return t.templates.ExecuteTemplate(w, name, data)
 }
 
 // TODO: add comment
-func setupTemplates() echo.Renderer {
-	return &Template{
+func setupTemplateRenderer() echo.Renderer {
+	return &TemplateRenderer{
 		templates: template.Must(template.ParseGlob("public/views/*.html")),
 	}
 }
@@ -62,7 +54,7 @@ func main() {
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
-	e.Renderer = setupTemplates()
+	e.Renderer = setupTemplateRenderer()
 	e.Static("/static", "public/static")
 
 	http.Handler(e, lister)
