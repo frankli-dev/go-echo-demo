@@ -1,32 +1,37 @@
 package listing
 
-import "sort"
+import (
+	"fmt"
+	"sort"
+)
 
-// TODO: add comment
+// Repository interface
 type Repository interface {
-	GetAllRenewableResources() []*RenewableResource
+	GetAllRenewableResources() ([]*RenewableResource, error) // get all renewable resources
 }
 
-// TODO: add comment
+// Service interface
 type Service interface {
-	GetRenewableResources() []*RenewableResource
+	GetRenewableResources() ([]*RenewableResource, error) // get all renewable resources
 }
 
-// TODO: add comment
+// service struct is a Service implementation
 type service struct {
 	r Repository
 }
 
-// TODO: add comment
-// TODO: add error handling
-func (s *service) GetRenewableResources() []*RenewableResource {
-	res := s.r.GetAllRenewableResources()
-
+// GetRenewableResources retrieves all renewable resources through
+// the service repository passed to the constructor argument
+func (s *service) GetRenewableResources() ([]*RenewableResource, error) {
+	res, err := s.r.GetAllRenewableResources()
+	if err != nil {
+		return nil, fmt.Errorf("Error while retrieving data from repository (GetAllRenewableResources):%v", err)
+	}
 	sort.Slice(res[:], func(i, j int) bool {
 		return res[i].CalendarDate < res[j].CalendarDate
 	})
 
-	return res
+	return res, nil
 }
 
 // NewService creates a listing service with the necessary dependencies

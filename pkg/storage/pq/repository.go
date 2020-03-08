@@ -8,20 +8,18 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-// TODO: add comment
+// Storage struct with gorm (postgres) implementation
 type Storage struct {
 	DB *gorm.DB
 }
 
-// TODO: add comment
-func (s *Storage) GetAllRenewableResources() []*listing.RenewableResource {
+// GetAllRenewableResources retrieves all renewable resources
+func (s *Storage) GetAllRenewableResources() ([]*listing.RenewableResource, error) {
 	var resources []*RenewableResource
 	var list []*listing.RenewableResource
 
 	if err := s.DB.Find(&resources).Error; err != nil {
-		// TODO: improve error handling
-		fmt.Println(err)
-		return nil
+		return nil, err
 	}
 
 	for _, r := range resources {
@@ -38,10 +36,10 @@ func (s *Storage) GetAllRenewableResources() []*listing.RenewableResource {
 		})
 	}
 
-	return list
+	return list, nil
 }
 
-// TODO: add comment
+// NewStorage returns a Storage with postgres connection setup
 func NewStorage() (*Storage, error) {
 	host := os.Getenv("DB_HOST")
 	port := os.Getenv("DB_PORT")
