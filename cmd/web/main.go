@@ -1,4 +1,5 @@
-// TODO: main comment
+// package main sets up a web application using echo framework. The app imports data from a Data.gov dataset to
+// postgresql database and displays the data using view templates.
 package main
 
 import (
@@ -16,23 +17,24 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
-// TODO: add comment
+// TemplateRenderer implements Renderer interface
 type TemplateRenderer struct {
 	templates *template.Template
 }
 
-// TODO: add comment
+// Render func implementation of Renderer interface
 func (t *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
 	return t.templates.ExecuteTemplate(w, name, data)
 }
 
-// TODO: add comment
+// setupTemplateRenderer configures all view templates
 func setupTemplateRenderer() echo.Renderer {
 	return &TemplateRenderer{
 		templates: template.Must(template.ParseGlob("public/views/*.html")),
 	}
 }
 
+// entry point
 func main() {
 	var lister listing.Service
 	storage, err := pq.NewStorage()

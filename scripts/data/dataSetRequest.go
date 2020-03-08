@@ -6,8 +6,9 @@ import (
 	"github.com/go-resty/resty/v2"
 )
 
-// TODO: add comment
-func DataSetRequest() (*resty.Response, error) {
+// MakeRequest retrieves data from Data.gov dataset
+// using resty client
+func MakeRequest() (*resty.Response, error) {
 	client := resty.New()
 
 	res, err := client.R().

@@ -11,7 +11,7 @@ import (
 	"github.com/ivan-marquez/golang-demo/pkg/storage/pq"
 )
 
-// TODO: add comment
+// parseColumnValues parses the data array with column values
 func parseColumnValues(data []byte) ([]*pq.RenewableResource, error) {
 	var rows []*pq.RenewableResource
 
@@ -26,7 +26,6 @@ func parseColumnValues(data []byte) ([]*pq.RenewableResource, error) {
 
 	_, err := jsonparser.ArrayEach(data, parse, "data")
 	if err != nil {
-		// TODO: return error
 		return nil, fmt.Errorf("Error parsing data:%v", err)
 	}
 
@@ -53,7 +52,7 @@ func cleanupColumnValues(data []byte) []string {
 	return c
 }
 
-// TODO: add comment
+// parseRenewableResource converts column values into RenewableResource
 func parseRenewableResource(values []string) *pq.RenewableResource {
 	cd, err := time.Parse("2006-01-02T15:04:05", values[0])
 	if err != nil {
@@ -98,7 +97,7 @@ func parseRenewableResource(values []string) *pq.RenewableResource {
 	}
 }
 
-// TODO: add comment
+// ParseResponse parses response from dataset request using jsonparser
 func ParseResponse(data []byte) ([]*pq.RenewableResource, error) {
 	c, err := parseColumnValues(data)
 	if err != nil {

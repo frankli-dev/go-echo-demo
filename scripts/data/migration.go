@@ -8,14 +8,15 @@ import (
 	gormbulk "github.com/t-tiger/gorm-bulk-insert"
 )
 
-// TODO: add comment
+// Migrate func creates and populates db table
+// with data retrieved from Data.gov dataset
 func Migrate(db *gorm.DB) {
 	log.Println("creating table…")
 	db.AutoMigrate(&pq.RenewableResource{})
 	log.Println("table successfully created.")
 
 	log.Println("requesting data to be inserted…")
-	res, err := DataSetRequest()
+	res, err := MakeRequest()
 	if err != nil {
 		log.Fatal(err)
 	}
