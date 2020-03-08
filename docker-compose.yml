@@ -1,25 +1,33 @@
 version: "3.7"
 
 services:
-  postgres:
+  db:
     container_name: postgres
+    hostname: postgres
     image: postgres:latest
     env_file: .env
     ports:
       - 5432:5432
+    expose:
+      - 5432
     volumes:
       - db-data:/var/lib/postgresql/data
 
-  go-demo:
+  web:
     container_name: go-demo
     env_file: .env
     build: ./
     ports:
-      - "8080:8080"
+      - 8080:8080
     volumes:
       - ./:/app%
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; ./go-demo -migrate'
     depends_on:
-      - postgres
+      - db
+    links:
+      - db
+    environment:
+      WAIT_HOSTS: postgres:5432
 
 volumes:
   db-data:
