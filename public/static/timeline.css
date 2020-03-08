@@ -1,8 +1,3 @@
-/*- Screen Sizes*/
-/*import fonts*/
-/* @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css");
-@import url("https://fonts.googleapis.com/css?family=Open+Sans");
-@import url("https://fonts.googleapis.com/css?family=Oswald"); */
 /*media queries*/
 html {
   box-sizing: border-box;
@@ -15,7 +10,6 @@ html {
 }
 
 body {
-  /* font-family: "Open Sans", "Lucida Grande", Tahoma, Verdana, Arial, sans-serif; */
   font-size: 0.875em;
   color: #212121;
   line-height: 1.5;
@@ -29,15 +23,13 @@ body {
 
 h1 {
   color: white;
-  /* font-family: "Open Sans", "Lucida Grande", Tahoma, Verdana, Arial, sans-serif; */
   text-align: center;
 }
 
-/* - &:nth-child(1) {
-			 grid-area: entry1;
-		 }
-   - useful timesaver if there is a lengthy list
-*/
+:nth-child(1) {
+  grid-area: entry1;
+}
+
 .timeline {
   line-height: 1.5em;
   font-size: 14px;
@@ -64,7 +56,6 @@ h1 {
 .timeline--entry__title {
   color: white;
   background-color: rgb(42, 167, 148);
-  /* font-family: "Oswald", Georgia, Cambria, "Times New Roman", Times, serif; */
   font-weight: bold;
   font-size: 1rem;
   padding: 1em;
@@ -81,7 +72,6 @@ h1 {
   border-right: 10px solid rgb(42, 167, 148);
 }
 .timeline--entry__detail {
-  /* background-color: #dddddd; */
   padding: 1em;
   margin: 0;
 }
