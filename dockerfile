@@ -12,6 +12,6 @@ ENV POSTGRES_DB=${POSTGRES_DB}
 ENV DB_HOST=${DB_HOST}
 ENV DB_PORT=${DB_PORT}
 
-RUN go build -o go-demo cmd/web/main.go
+RUN go build -o go-demo cmd/go-demo/main.go
 
 CMD ./go-demo -migrate
