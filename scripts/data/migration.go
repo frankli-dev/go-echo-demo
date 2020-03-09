@@ -4,21 +4,24 @@ import (
 	"log"
 
 	"github.com/ivan-marquez/golang-demo/pkg/storage/pq"
-	"github.com/jinzhu/gorm"
-	gormbulk "github.com/t-tiger/gorm-bulk-insert"
 )
 
 // Migrate func creates and populates db table
 // with data retrieved from Data.gov dataset
-func Migrate(db *gorm.DB) {
+func Migrate() error {
+	storage, err := pq.NewStorage()
+	if err != nil {
+		return err
+	}
+
 	log.Println("creating table…")
-	db.AutoMigrate(&pq.RenewableResource{})
+	storage.Migrate()
 	log.Println("table successfully created.")
 
 	log.Println("requesting data to be inserted…")
 	res, err := MakeRequest()
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	log.Println("data retrieved successfully.")
 
@@ -26,7 +29,7 @@ func Migrate(db *gorm.DB) {
 	// Process Json data
 	values, err := ParseResponse(res.Body())
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	log.Println("inserting data…")
@@ -34,8 +37,12 @@ func Migrate(db *gorm.DB) {
 	for _, v := range values {
 		records = append(records, v)
 	}
-	// WARN: using gorm-bulk-insert until the following GORM issue gets closed:
-	// https://github.com/jinzhu/gorm/issues/255
-	gormbulk.BulkInsert(db, records, 1000)
+
+	err = storage.Populate(records)
+	if err != nil {
+		return err
+	}
 	log.Println("data inserted successfully.")
+
+	return nil
 }
