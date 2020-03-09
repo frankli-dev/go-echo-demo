@@ -28,7 +28,7 @@ DB_HOST=db
 The app is setup with Docker. Run it with `docker-compose`:
 
 ```bash
-docker-compose up --build;
+docker-compose up;
 ```
 
 The app will be available in `http://localhost:8080/renewables`
