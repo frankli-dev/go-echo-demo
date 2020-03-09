@@ -46,7 +46,10 @@ func main() {
 	flag.Parse()
 
 	if *migrate {
-		data.Migrate(storage.DB)
+		err = data.Migrate()
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	lister = listing.NewService(storage)
