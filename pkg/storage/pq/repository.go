@@ -10,7 +10,7 @@ import (
 
 // Storage struct with gorm (postgres) implementation
 type Storage struct {
-	DB *gorm.DB
+	db *gorm.DB
 }
 
 // GetAllRenewableResources retrieves all renewable resources
@@ -18,7 +18,7 @@ func (s *Storage) GetAllRenewableResources() ([]*listing.RenewableResource, erro
 	var resources []*RenewableResource
 	var list []*listing.RenewableResource
 
-	if err := s.DB.Find(&resources).Error; err != nil {
+	if err := s.db.Find(&resources).Error; err != nil {
 		return nil, err
 	}
 
@@ -61,7 +61,7 @@ func NewStorage() (*Storage, error) {
 	}
 
 	s := new(Storage)
-	s.DB = db
+	s.db = db
 
 	return s, nil
 }
