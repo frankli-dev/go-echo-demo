@@ -12,7 +12,11 @@ func (s *Storage) Migrate() {
 }
 
 // Populate populates db table with passed records
-func (s *Storage) Populate(records []interface{}) error {
+func (s *Storage) Populate(r []*RenewableResource) error {
+	var records []interface{}
+	for _, v := range r {
+		records = append(records, v)
+	}
 	// WARN: using gorm-bulk-insert until the following GORM issue gets closed:
 	// https://github.com/jinzhu/gorm/issues/255
 	err := gormbulk.BulkInsert(s.db, records, 1000)

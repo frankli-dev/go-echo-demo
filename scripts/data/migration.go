@@ -27,18 +27,13 @@ func Migrate() error {
 
 	log.Println("parsing retrieved data…")
 	// Process Json data
-	values, err := ParseResponse(res.Body())
+	rr, err := ParseResponse(res.Body())
 	if err != nil {
 		return err
 	}
 
 	log.Println("inserting data…")
-	var records []interface{}
-	for _, v := range values {
-		records = append(records, v)
-	}
-
-	err = storage.Populate(records)
+	err = storage.Populate(rr)
 	if err != nil {
 		return err
 	}
