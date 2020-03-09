@@ -21,7 +21,7 @@ type service struct {
 }
 
 // GetRenewableResources retrieves all renewable resources through
-// the service repository passed to the constructor argument
+// the repository passed as an argument to NewService
 func (s *service) GetRenewableResources() ([]*RenewableResource, error) {
 	res, err := s.r.GetAllRenewableResources()
 	if err != nil {
