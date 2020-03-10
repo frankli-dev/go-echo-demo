@@ -29,11 +29,11 @@ func (s *service) GetRenewableResources() ([]*RenewableResource, error) {
 		return nil, fmt.Errorf("Error while retrieving data from repository (GetAllRenewableResources):%v", err)
 	}
 	// FIXME: not sorting properly
-	sort.SliceStable(res[:], func(i, j int) bool {
+	sort.SliceStable(res, func(i, j int) bool {
 		ti, _ := time.Parse("2006-01-02T15:04:05", res[i].CalendarDate)
-		ji, _ := time.Parse("2006-01-02T15:04:05", res[j].CalendarDate)
+		tj, _ := time.Parse("2006-01-02T15:04:05", res[j].CalendarDate)
 
-		return ti.Before(ji)
+		return ti.Before(tj)
 	})
 
 	return res, nil
